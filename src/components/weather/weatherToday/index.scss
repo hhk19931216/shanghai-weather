@@ -1,0 +1,15 @@
+@import "../../../assets/styles/base";
+
+.today-weather-content{
+  .title{
+    margin: 20px 0;
+    font-size: 20px;
+  }
+  .sky-content-today{
+    width: 100%;
+    @include container-flex(flex, row, nowrap, space-around, center);
+      .icon-text{
+
+      }
+  }
+}

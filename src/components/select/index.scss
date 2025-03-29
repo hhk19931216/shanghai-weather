@@ -1,0 +1,32 @@
+.city-selector {
+  width: 700px;
+  margin: 0 auto;
+  .text-inverse {
+    padding: 24px 24px 0 24px;
+    font-size: 20px;
+  }
+  .city-container {
+    display: flex; /* 启用 Flex 布局 */
+    height: 360px;
+    width: 100%;
+
+    .sidebar {
+      width: 150px; /* 固定导航宽度 */
+      background: #f0f0f0;
+      border-right: 1px solid #ddd;
+      padding: 0;
+    }
+    .content {
+      flex: 1; /* 剩余空间全部给内容区 */
+      padding: 20px;
+      background: #fff;
+      overflow-y: auto;
+    }
+  }
+}
+
+
+
+
+
+

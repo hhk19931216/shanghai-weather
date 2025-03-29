@@ -1,0 +1,352 @@
+$white: #FFFFFF !default;
+$gray-100: #FFFFFF !default;
+$gray-200: #FAFAFA !default;
+$gray-300: #F5F5F5 !default;
+$gray-400: #F0F0F0 !default;
+$gray-500: #D9D9D9 !default;
+$gray-600: #8C8C8C !default;
+$gray-700: #565D66 !default;
+$gray-800: #595959 !default;
+$gray-900: #262626 !default;
+$gray-1000: #000000 !default;
+$black: #000000 !default;
+
+$blue-gray-100: #F7F9FA !default;
+$blue-gray-200: #F5F6F7 !default;
+$blue-gray-300: #EDF0F2 !default;
+$blue-gray-400: #D0D5DB !default;
+$blue-gray-500: #C3C7CC !default;
+$blue-gray-600: #969CA3 !default;
+$blue-gray-700: #80858C !default;
+$blue-gray-800: #565D66 !default;
+$blue-gray-900: #2B2F33 !default;
+$blue-gray-1000: #0F1114 !default;
+
+$orange-100: #FCEDE8 !default;
+$orange-200: #FCD1C0 !default;
+$orange-300: #FCB797 !default;
+$orange-400: #FCA16F !default;
+$orange-500: #FC8C47 !default;
+$orange-600: #FE7100 !default;
+$orange-700: #D46600 !default;
+$orange-800: #AB5800 !default;
+$orange-900: #824800 !default;
+$orange-1000: #593100 !default;
+
+$blue-100: #b9e3fd !default;
+$blue-200: #81bffd !default;
+$blue-300: #5e9cff !default;
+$blue-400: #3478f6 !default;
+$blue-500: #095dd3 !default;
+
+$color-primary: $orange-400;
+$color-primary-disabled: $orange-200;
+$color-primary-hover: $orange-300;
+$color-primary-active: $orange-500;
+$color-primary-disabled-text: $orange-100;
+
+$blue-primary: $blue-400;
+$blue-primary-disabled: #3478f666 !default;
+$blue-primary-bg: #3478f618 !default;
+$blue-primary-hover: $blue-300;
+$blue-primary-active: $blue-500;
+$blue-primary-disabled-text: $blue-100;
+
+$blue: $blue-400 !default;
+$indigo: #6610f2 !default;
+$purple: #6f42c1 !default;
+$pink: #d63384 !default;
+$yellow: #ffaa01 !default;
+$teal: #20c997 !default;
+$cyan: #17a2b8 !default;
+$orange: $orange-400 !default;
+$red: #fa4147 !default;
+$green: #23db73 !default;
+
+$primary: $orange !default;
+$secondary: $gray-600 !default;
+$success: $green !default;
+$info: $cyan !default;
+$warning: $yellow !default;
+$danger: $red !default;
+$light: $gray-100 !default;
+$dark: $gray-800 !default;
+
+$dark-100: #e6e7eb !default;
+$dark-200: #afb0b3 !default;
+$dark-300: #6e6f70 !default;
+$dark-400: #4b4d52 !default;
+$dark-500: #424347 !default;
+$dark-600: #383a3d !default;
+$dark-700: #2b2f33 !default;
+$dark-800: #232428 !default;
+$dark-900: #141417 !default;
+$dark-1000: #101011 !default;
+
+$dark-new: #ffffff !default;
+
+$normal: $orange-400 !default;
+$suspension: $orange-300 !default;
+$click: $orange-500 !default;
+$disable: $orange-200 !default;
+
+$normal: $gray-400 !default;
+$suspension: $gray-500 !default;
+$click: $gray-600 !default;
+$disable: $gray-300 !default;
+
+$theme-colors: (
+        "primary": $primary,
+        "secondary": $secondary,
+        "success": $success,
+        "info": $info,
+        "warning": $warning,
+        "danger": $danger,
+        "light": $light,
+        "dark": $dark,
+);
+
+$font-family-sans-serif: "PingFangSC-Medium" !default;
+$font-family-monospace: SFMono-Regular, Menlo, Monaco, Consolas,
+"Liberation Mono", "Courier New", monospace !default;
+$font-family-base: PingFangSC-Regular, PingFang SC !default;
+$font-color: $dark-200 !default;
+
+// 字体大小
+$font-size-base: 12px !default; // Assumes the browser default, typically `12px`
+$font-size-lg: 16px !default;
+$font-size-md: 14px !default;
+$font-size-sm: 10px !default;
+$font-size-root: null !default;
+
+// 字重
+$font-weight-lighter: lighter !default;
+$font-weight-light: 300 !default;
+$font-weight-normal: 400 !default;
+$font-weight-bold: 600 !default;
+$font-weight-bolder: bolder !default;
+$font-weight-base: $font-weight-normal !default;
+
+// 行高
+$line-height-base: 12px !default;
+$line-height-lg: $line-height-base * 2.5 !default;
+$line-height-sm: $line-height-base !default;
+
+// 标题大小
+$h1-font-size: $font-size-base * 2 !default;
+$h2-font-size: $font-size-sm * 2.2 !default;
+$h3-font-size: $font-size-sm * 1.8 !default;
+$h4-font-size: $font-size-sm * 1.6 !default;
+$h5-font-size: $font-size-base !default;
+$h6-font-size: $font-size-sm !default;
+
+// 链接
+$link-color: $color-primary !default;
+$link-decoration: none !default;
+$link-hover-color: $color-primary-hover !default;
+$link-hover-decoration: underline !default;
+
+// body
+$body-bg: $dark-new !default;
+$body-color: $gray-200 !default;
+$body-text-align: null !default;
+
+// Spacing
+$spacer: 12px !default;
+
+// Paragraphs
+
+$paragraph-margin-bottom: 12px !default;
+
+// 字体其他部分 heading list hr 等等
+$headings-margin-bottom: $spacer / 2 !default;
+$headings-font-family: null !default;
+$headings-font-style: null !default;
+$headings-font-weight: 500 !default;
+$headings-line-height: $font-size-base * 1.6 !default;
+$headings-color: null !default;
+
+$small-font-size: 10px !default;
+
+$sub-sup-font-size: 0.75em !default;
+
+$initialism-font-size: $small-font-size !default;
+
+$blockquote-small-color: $gray-600 !default;
+$blockquote-small-font-size: $small-font-size !default;
+$blockquote-font-size: $font-size-base * 1.25 !default;
+
+$hr-color: inherit !default;
+$hr-height: 1px !default;
+$hr-opacity: 0.25 !default;
+
+$legend-margin-bottom: 0.5rem !default;
+$legend-font-size: 1.5rem !default;
+$legend-font-weight: null !default;
+
+$mark-padding: 0.2em !default;
+
+$dt-font-weight: $font-weight-bold !default;
+
+$nested-kbd-font-weight: $font-weight-bold !default;
+
+$list-inline-padding: 0.5rem !default;
+
+$mark-bg: #fcf8e3 !default;
+
+$hr-margin-y: $spacer !default;
+
+// Code
+
+$code-font-size: $small-font-size !default;
+$code-color: $pink !default;
+$pre-color: null !default;
+
+// options 可配置选项
+$enable-pointer-cursor-for-buttons: true !default;
+
+// 边框 和 border radius
+$border: 2px solid $dark-600;
+$border-bottom: 2px solid $dark-600;
+$border-bottom-sm: 1px solid $dark-600;
+$border-left: 2px solid $dark-1000;
+$border-width: 1px !default;
+$border-width-lg: $border-width * 6 !default;
+$border-width-sm: $border-width * 2 !default;
+$border-color: $gray-200 !default;
+
+$border-radius: 4px !default;
+$border-radius-lg: 6px !default;
+$border-radius-sm: 2px !default;
+
+// 不同类型的 box shadow
+$box-shadow-default: 0 0 0 0 !default;
+$box-shadow-sm: 0 6px 16px rgba($black, 0.08) !default;
+$box-shadow: 0 9px 28px rgba($black, 0.05) !default;
+$box-shadow-lg: 0 12px 48px rgba($black, 0.03) !default;
+$box-shadow-inset: inset 0 1px 2px rgba($black, 0.075) !default;
+
+// 按钮
+// 按钮基本属性
+$btn-font-weight: 400;
+$btn-padding-y: 10px !default;
+$btn-padding-x: 10px !default;
+$btn-font-family: $font-family-base !default;
+$btn-font-size: $font-size-base !default;
+$btn-line-height: $line-height-base !default;
+
+// Alert
+$alert-font-weight: 400;
+$alert-font-family: $font-family-base !default;
+$alert-line-height: $line-height-base !default;
+$alert-padding-y: $btn-padding-y * 3.35 !default;
+$alert-padding-x: $btn-padding-x * 3.35 !default;
+$alert-border-width: $border-width !default;
+
+//不同大小按钮的 padding 和 font size
+$btn-padding-y-sm: $btn-padding-y * 0.8 !default;
+$btn-padding-x-sm: $btn-padding-x * 0.8 !default;
+$btn-font-size-sm: $font-size-sm !default;
+
+$btn-padding-y-lg: $btn-padding-y * 1.6 !default;
+$btn-padding-x-lg: $btn-padding-x * 1.6 !default;
+$btn-font-size-lg: $font-size-lg !default;
+
+// 按钮边框
+$btn-border-width: $border-width !default;
+$btn-border-dashed: dashed !default;
+
+// 按钮其他
+$btn-box-shadow: inset 0 1px 0 rgba($white, 0.15), 0 1px 1px rgba($black, 0.075) !default;
+$btn-disabled-opacity: 0.65 !default;
+
+// 链接按钮
+$btn-link-color: $link-color !default;
+$btn-link-hover-color: $link-hover-color !default;
+$btn-link-disabled-color: $gray-600 !default;
+
+// 按钮 radius
+$btn-border-radius: $border-radius !default;
+$btn-border-radius-lg: $border-radius-lg !default;
+$btn-border-radius-sm: $border-radius-sm !default;
+
+$btn-transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out,
+border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out !default;
+
+// menu
+$menu-border-width: $border-width !default;
+$menu-border-color: $border-color !default;
+$menu-box-shadow: inset 0 1px 0 rgba($white, 0.15),
+0 1px 1px rgba($black, 0.075) !default;
+$menu-transition: color 0.15s ease-in-out, border-color 0.15s ease-in-out !default;
+
+// menu-item
+$menu-item-padding-y: $font-size-base * 0.5 !default;
+$menu-item-padding-x: 12px !default;
+$menu-item-active-color: $normal !default;
+$menu-item-active-border-width: 2px !default;
+$menu-item-disabled-color: $gray-600 !default;
+
+//sub-menu
+//submenu
+$submenu-box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.12),
+0 0 6px 0 rgba(0, 0, 0, 0.04);
+
+//input
+$input-padding-y: $btn-padding-y !default;
+$input-padding-x: $btn-padding-x !default;
+$input-font-family: $btn-font-family !default;
+$input-font-size: $font-size-base !default;
+$input-font-weight: $font-weight-base !default;
+$input-line-height: $btn-line-height !default;
+
+$input-padding-y-sm: $btn-padding-y-sm !default;
+$input-padding-x-sm: $btn-padding-x-sm !default;
+$input-font-size-sm: $btn-font-size-sm !default;
+
+$input-padding-y-lg: $btn-padding-y-lg !default;
+$input-padding-x-lg: $btn-padding-x-lg !default;
+$input-font-size-lg: $btn-font-size-lg !default;
+
+$input-bg: $dark-600 !default;
+$input-disabled-bg: $dark-700 !default;
+$input-disabled-border-color: null !default;
+
+$input-color: $dark-200 !default;
+$input-border-color: $gray-200 !default;
+$input-border-width: $border-width !default;
+$input-box-shadow: $box-shadow-inset !default;
+
+$input-border-radius: $border-radius !default;
+$input-border-radius-lg: $border-radius-lg !default;
+$input-border-radius-sm: $border-radius-sm !default;
+
+$input-focus-bg: $dark-500 !default;
+$input-focus-border-color: $blue-gray-300 !default;
+$input-focus-border-width: $border-width-sm !default;
+$input-focus-color: $white !default;
+$input-focus-shadow-color: rgba($primary, 0.25) !default;
+$input-focus-box-shadow: 0 0 0 $border-width $input-focus-shadow-color !default;
+
+$input-placeholder-color: $gray-600 !default;
+$input-plaintext-color: $body-color !default;
+
+$input-height-border: $input-border-width * 2 !default;
+
+$input-transition: border-color 0.3s ease-in-out, box-shadow 0.3s ease-in-out !default;
+
+$input-group-addon-color: $input-color !default;
+$input-group-addon-bg: $gray-200 !default;
+$input-group-addon-border-color: $input-border-color !default;
+
+// Progress bars进度条
+$progress-font-size: $font-size-base * 0.75 !default;
+$progress-bg: $gray-200 !default;
+$progress-border-radius: $border-radius-sm !default;
+$progress-bar-color: $white !default;
+$progress-bar-transition: width 0.6s ease !default;
+
+// animate
+// $duration-time: 1s;
+// $animation-duration: $duration-time;
+$animation-fill-mode: both;

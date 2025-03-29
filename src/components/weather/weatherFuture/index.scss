@@ -1,0 +1,99 @@
+@import "../../../assets/styles/base";
+
+.title{
+  margin: 20px 0;
+  font-size: 20px;
+}
+.box-ref {
+  height: 600px;
+  width: 100%;
+  overflow-y: auto;
+  position: relative;
+  @include scrollbar-thumb();
+
+  .sky-content {
+    .sky-ul {
+      width: 100%;
+
+      .sky-li {
+        //background: -webkit-gradient(linear, 0% 0, 0% 100%, from(#50b2fb), to(#a6d4f6));
+        @include container-flex(flex, row, nowrap, space-around, center);
+        margin: 10px 0;
+        border-radius: 4px;
+
+        .sky-content-right, .sky-content-middle, .sky-content-left {
+          border: 1px solid #d4d4d4;
+          margin: 0px 10px;
+          padding: 10px;
+          height: 260px;
+          width: 200px;
+          border-radius: 4px;
+
+          .icon-text {
+            display: flex;
+            align-items: center; /* 垂直居中 */
+            gap: 8px; /* 图标和文字的间距 */
+            font-family: 'Arial', sans-serif; /* 可选：字体 */
+            color: #333; /* 文字颜色 */
+            margin: 10px;
+
+            i {
+              font-size: 20px; /* 图标大小 */
+              //color: #FFA500; /* 图标颜色（橙色） */
+              &.temp-hot {
+                color: #FC8C47;
+              }
+
+              &.temp-tepid {
+                color: #eec50b;
+              }
+
+              &.temp-cold {
+                color: #2d76b6;
+              }
+
+              &.gray {
+                color: #8C8C8C;
+              }
+
+              &.blue {
+                color: #2d76b6;
+              }
+
+              &.text-orange {
+                color: #eec50b
+              }
+
+              &.text-gray {
+                color: #7f7f7f;
+              }
+
+              &.text-white {
+                color: #f9f9f9;
+              }
+            }
+
+            .blue
+            span {
+              font-size: 16px;
+              font-weight: 500; /* 中等粗细 */
+            }
+          }
+        }
+
+        .sky-content-left {
+          width: 300px;
+        }
+
+      }
+
+      .sky-li-sun {
+        background: -webkit-gradient(linear, 0% 0, 0% 100%, from(#50b2fb), to(#a6d4f6));
+      }
+
+      .sky-li-yin {
+        background: -webkit-gradient(linear, 0% 0, 0% 100%, from(#88a9ca), to(#bcd3e3));
+      }
+    }
+  }
+}

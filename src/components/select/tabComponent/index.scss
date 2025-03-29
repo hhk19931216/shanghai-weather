@@ -1,0 +1,20 @@
+
+.sidebar{
+  width: 150px;
+  .tab-button{
+    align-items: center;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    padding: 9px 0;
+    &:hover{
+      cursor: pointer;
+    }
+  }
+  .tab-active{
+    font-weight: 500;
+    background-color: #FFFFFF;
+    color: #4e6ef2;
+    font-family: PingFang SC, Arial, sans-serif;
+  }
+}
