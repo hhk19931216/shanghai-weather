@@ -1,4 +1,4 @@
-import React, {memo, useCallback, useEffect, useState} from 'react';
+import React, {memo, useCallback, useDeferredValue, useEffect, useState} from 'react';
 import './SearchInputComponent.scss';
 import {Input} from "antd";
 import {WeatherData} from "@/service/GlobalData.server";
@@ -18,25 +18,32 @@ interface SearchInputProps {
     placeholder?: string;  // 可选属性
     onSearch: (value: string) => Promise<void>;  // 必需属性
 }
-const SearchInputComponent = memo((props:SearchInputProps) => {
-    const {placeholder,onSearch} = props;
+const SearchInputComponent = memo<SearchInputProps>(({placeholder,onSearch}) => {
     const {getWeather} = useGetWeather()
-    const [keyword,setKeyWord] = useState('');
+    const [searchTerm,setSearchTerm] = useState('');
     const [loading, setLoading] = useState(false);
 
-    const onSearchInput = useCallback( (value) => {
-        if(onSearch){
-            onSearch(value)
+    const deferredSearchTerm = useDeferredValue(searchTerm)
+
+    const handleSearch = useCallback( (value) => {
+        setSearchTerm(value)
+        setLoading(true);
+        try {
+            onSearch?.(value);
+        } finally {
+            setLoading(false);
         }
-    },[])
+    },[onSearch])
 
-    useEffect(()=>{
-
-    },[keyword])
+    const handleChange = useCallback((e) => {
+        const value = e.target.value;
+        setSearchTerm(value);
+        // handleSearch(value);
+    }, [handleSearch]);
 
     return (
         <div className={'search-input-component'}>
-            <Search placeholder={props.placeholder || '搜索国内城市'} onSearch={onSearchInput}/>
+            <Search placeholder={placeholder || '搜索国内城市'} onChange={handleChange} onSearch={handleSearch} value={searchTerm} loading={loading}/>
         </div>
     )
 })

@@ -1,65 +1,113 @@
-import {FC, memo, useEffect, useState} from "react";
-import {Button, ConfigProvider} from "antd";
-import "./index.scss"
+import {FC, memo, useEffect, useState, useCallback, useMemo} from "react";
+import {Button, ConfigProvider, Empty, Spin} from "antd";
+import "./index.scss";
 
+interface ProvinceItem {
+    id?: string | number;
+    name: string;
+}
+
+interface LocationItem {
+    id: string | number;
+    name: string;
+}
 
 interface PropsType {
-    provinces: any[];
-    location: any[];
+    provinces: ProvinceItem[] | string[];
+    location: LocationItem[];
     propsActive: string | null;
-    handleChange: (value: any, id?: any) => Promise<void>;
+    handleChange: (value: string, id?: string | number) => Promise<void>;
+    loading?: boolean;
 }
-const CityComponent:FC<PropsType> = memo(({provinces, location, handleChange,propsActive}) => {
-    const [active,setActive] = useState(propsActive)
+
+const CityComponent: FC<PropsType> = memo(({provinces, location, handleChange, propsActive, loading = false}) => {
+    const [active, setActive] = useState(propsActive);
+    const [internalLoading, setInternalLoading] = useState(false);
+
     useEffect(() => {
+        setActive(propsActive);
+    }, [propsActive]);
 
-    }, []);
 
-    const changeTab = (item, id?) => {
-        // console.log(item);
-        setActive(item)
+    const changeTab = useCallback(async (item: string, id?: string | number) => {
+        setActive(item);
         if (handleChange) {
-            handleChange(item, id)
+            try {
+                setInternalLoading(true);
+                await handleChange(item, id);
+            } finally {
+                setInternalLoading(false);
+            }
         }
-    }
+    }, [handleChange]);
 
-    const BottonToken = (item,index,id?)=>{
-        return  <ConfigProvider
-            theme={{
-                components: {
-                    Button: {
-                        colorPrimary: '#ffffff',  // 主按钮背景色
-                        colorPrimaryHover: '#e8f3ff', // 悬停状态
-                        colorPrimaryActive: '#4e6ef2', // 点击状态
-                        colorText: '#ffffff', // 按钮文字颜色
-                        borderRadius: 8, // 圆角大小
-                        controlHeight: 40, // 按钮高度
-                    },
-                },
-            }}
-        >
-            <Button type="primary" className={['city-selector-btn',active === item ? 'active':""].join(" ")} onClick={() => changeTab(item,id)} key={index}>{item}</Button>
+    const buttonThemeConfig = useMemo(() => ({
+        components: {
+            Button: {
+                colorPrimary: '#ffffff',
+                colorPrimaryHover: '#e8fff3',
+                colorPrimaryActive: '#4e6ef2',
+                colorText: '#ffffff',
+                borderRadius: 8,
+                controlHeight: 40,
+            },
+        },
+    }), []);
+
+    const ButtonToken = useCallback((item: string, id?: string | number, index?: number) => (
+        <ConfigProvider theme={buttonThemeConfig}>
+            <Button
+                type="primary"
+                className={['city-selector-btn', active === item ? 'active' : ''].join(' ')}
+                onClick={() => changeTab(item, id)}
+                key={id || index}
+            >
+                {item}
+            </Button>
         </ConfigProvider>
-    }
+    ), [active, buttonThemeConfig, changeTab, internalLoading]);
 
+    const renderProvinces = useMemo(() => {
+        if (!Array.isArray(provinces)) return <Empty description="暂无省份数据"/>;
 
-    return <div className={'content'}>
-        <div className={'city-selector-content-label'}>省/市</div>
-        <div className={'city-selector-content-province'}>
-            {Array.isArray(provinces) ? provinces.map((item, index) =>
-                <div className={'city-selector-content-city'} key={index}>
-                    {BottonToken(item,index)}
-                </div>) : <div>这里什么也没有</div>}
+        return provinces.map((item, index) => {
+            const name = typeof item === 'string' ? item : item.name;
+            const id = typeof item === 'string' ? undefined : item.id;
+
+            return (
+                <div className="city-selector-content-city" key={id || index}>
+                    {ButtonToken(name, id, index)}
+                </div>
+            );
+        });
+    }, [provinces, ButtonToken]);
+
+    const renderLocations = useMemo(() => {
+        if (!Array.isArray(location)) return null;
+        if (location.length === 0) return <Empty description="请先选择省份"/>;
+
+        return location.map((item) => (
+            <div className="city-selector-content-city" key={item.id}>
+                {ButtonToken(item.name, item.id)}
+            </div>
+        ));
+    }, [location, ButtonToken]);
+
+    return (
+        <div className="content">
+            <Spin spinning={loading || internalLoading}>
+                <div className="city-selector-content-label">省/市</div>
+                <div className="city-selector-content-province">
+                    {renderProvinces}
+                </div>
+
+                <div className="city-selector-content-label">市/区</div>
+                <div className="city-selector-content-province">
+                    {renderLocations}
+                </div>
+            </Spin>
         </div>
-        <div className={'city-selector-content-label'}>市/区</div>
-        <div className={'city-selector-content-province'}>
-            {Array.isArray(location) ? location.map((item) =>
-                <div className={'city-selector-content-city'} key={item.id}>
-                    {BottonToken(item.name,item.id,item.id)}
-                </div>) : null}
-        </div>
-    </div>
-
-})
+    );
+});
 
 export default CityComponent;

@@ -10,11 +10,6 @@ const tabList = ["热门省市","ABCD","EFGH","JKLM","NOPQ","RSTW","XYZ"]
 const TabComponent:FC<TabProps> = ({onChangeTab})=>{
     const [activeKey, setActiveKey] = useState(tabList[0])
 
-
-    useEffect(()=>{
-
-    },[])
-
     const changTab = (item)=>{
         onChangeTab(item);
         setActiveKey(item);
