@@ -9,11 +9,12 @@ import axios, {
 import {message} from "antd";
 import {checkNetwork} from "@/utils/utils";
 import {DebugConfig} from "@/service/DebugConfig";
-
+import {cacheService} from "@/utils/cacahe";
+import {RequestConfig, ResponseConfig} from "@/service/types";
 
 export class dataService {
 
-    private axiosinstance: AxiosInstance;
+    private axiosInstance: AxiosInstance;
     // private static _instances: Service;
     //
     // public static getInstance(): Service {
@@ -25,7 +26,7 @@ export class dataService {
     // }
 
     constructor(config?: CreateAxiosDefaults) {
-        this.axiosinstance = axios.create({
+        this.axiosInstance = axios.create({
             timeout: 10000,
             headers: {
                 'Content-Type': 'application/json',
@@ -37,7 +38,7 @@ export class dataService {
     }
 
     private initInstance(config?: CreateAxiosDefaults) {
-        this.axiosinstance = axios.create({
+        this.axiosInstance = axios.create({
             timeout: 10000,
             headers: {
                 'Content-Type': 'application/json',
@@ -51,19 +52,20 @@ export class dataService {
 
     private initializeInterceptors() {
         // 请求拦截器
-        this.axiosinstance.interceptors.request.use(
-            this.handleRequestSuccess,
+        this.axiosInstance.interceptors.request.use(
+            (config)=>this.handleRequestSuccess(config),
             this.handleRequestError
         );
 
         // 响应拦截器
-        this.axiosinstance.interceptors.response.use(
+        this.axiosInstance.interceptors.response.use(
             this.handleResponseSuccess,
             this.handleResponseError
         );
     }
 
-    private handleRequestSuccess(config: InternalAxiosRequestConfig): InternalAxiosRequestConfig {
+    private handleRequestSuccess = (config: InternalAxiosRequestConfig): InternalAxiosRequestConfig | Promise<InternalAxiosRequestConfig>=> {
+        const myConfig = config as InternalAxiosRequestConfig & { cache?: boolean | number };
         if (config.url && config.url.startsWith('http://')) {
             config.url = config.url.replace('http://', 'https://');
         }
@@ -71,11 +73,23 @@ export class dataService {
         if (config.url && config.url.startsWith('http://localhost:5173')) {
             config.url = config.url.replace('http://localhost:5173', '');
         }
-        // 可以在这里添加token等
-        const token = localStorage.getItem('token');
-        if (token) {
-            const headers = new AxiosHeaders();
-            headers.set('Authorization',`Bearer ${token}`)
+        if(myConfig.cache){
+            const cacheKey = this.generateCacheKey(myConfig);
+            const cachedData = cacheService.get(cacheKey);
+            if(cachedData){
+                return {
+                    ...myConfig,
+                    adapter:()=>{
+                        return Promise.resolve({
+                            data: cachedData,
+                            status: 200,
+                            statusText: 'OK',
+                            headers: new AxiosHeaders(),
+                            config,
+                        })
+                    }
+                } as InternalAxiosRequestConfig
+            }
         }
         return config;
     }
@@ -84,8 +98,16 @@ export class dataService {
         return Promise.reject(error);
     }
 
-    private handleResponseSuccess(response: AxiosResponse): AxiosResponse {
-        return response.data;
+    private handleResponseSuccess = (response: ResponseConfig): ResponseConfig =>{
+        const config = response.config as RequestConfig;
+        if(config.cache){
+            const ttl = typeof config.cache === 'number'
+                ? config.cache
+                : undefined;
+            const cacheKey = this.generateCacheKey(response.config);
+            cacheService.set(cacheKey, response.data, ttl);
+        }
+        return response;
     }
 
     private handleResponseError(error: AxiosError): Promise<AxiosError> {
@@ -100,12 +122,16 @@ export class dataService {
         return Promise.reject(error);
     }
 
-    public http_get<T = any>(url: string, params: Record<string, any> = null, config?: AxiosRequestConfig): Promise<T> {
-        return this.axiosinstance.get(url, {params, ...config});
+    private generateCacheKey = (config: RequestConfig):string=> {
+        return `${config.method}:${config.url}:${JSON.stringify(config.params)}:${JSON.stringify(config.data)}`;
     }
 
-    public http_post<T>(url: string, data?: Record<string, any>, config?: AxiosRequestConfig): Promise<T> {
-        return this.axiosinstance.post(url, data, config);
+    public http_get<T>(url: string, params: Record<string, any> = null, config?: RequestConfig): Promise<T> {
+        return this.axiosInstance.get(url, {params, ...config} as AxiosRequestConfig).then(res=>res.data);
+    }
+
+    public http_post<T>(url: string, data?: Record<string, any>, config?: RequestConfig): Promise<T> {
+        return this.axiosInstance.post(url, data, (config as AxiosRequestConfig));
     }
 
     /**
@@ -162,43 +188,6 @@ export class dataService {
         }, err => {
             return Promise.reject(err)
         })
-    }
-
-
-    public static getQueryVariable(variable) {
-        let query = window.location.search.substring(1);
-        let vars = query.split("&");
-        for (let i = 0; i < vars.length; i++) {
-            let pair = vars[i].split("=");
-            if (pair[0] == variable) {
-                return pair[1];
-            }
-        }
-        return ('');
-    }
-
-    public static getRequestUrl(url, params: any): string {
-        if (null === params) {
-            return url;
-        }
-        let paramsStr: string = '';
-        let i: number = 0;
-        for (let key in params) {
-            if (i !== 0) {
-                paramsStr += ('&' + key + '=' + params[key].toString());
-            } else {
-                paramsStr += (key + '=' + params[key].toString());
-            }
-            i++;
-        }
-
-        if (url.charAt(url.length - 1) !== '?') {
-            if (url.charAt(url.length - 1) !== '/') {
-                url = url + '/';
-            }
-            url = url + '?';
-        }
-        return url + paramsStr;
     }
 
 }

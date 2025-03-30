@@ -25,7 +25,7 @@ const CitySelector = memo((props) => {
         const fetchCity = async () => {
             try {
                 setLoading(true)
-                const cityPromise = await globalDataServer.getHotCitys()
+                const cityPromise = await globalDataServer.getHotCitys() as {topCityList:any[]}
                 const cityList = cityPromise.topCityList.map((item)=>item.name);
                 getWeather();
                 setCityList(cityList)
@@ -47,7 +47,7 @@ const CitySelector = memo((props) => {
         }
         setActive(value);
         setLoading(true);
-        const cityPromise = await globalDataServer.getCitys(value);
+        const cityPromise = await globalDataServer.getCitys(value) as {location:any[]};
         const location = cityPromise.location;
         const cityname = location[0].tz.toLowerCase().replace("asia/","");
 
@@ -66,7 +66,7 @@ const CitySelector = memo((props) => {
     const handleChange = async (value, id?) => {
         setActive(value);
         if(!id){//省市
-            const cityPromise = await globalDataServer.getCitys(value);
+            const cityPromise = await globalDataServer.getCitys(value) as {location:any[]};
             const location = cityPromise.location;
             if(location[0].name === value){//当前选择为城市不是省
                 //获取当前城市天气
@@ -88,7 +88,7 @@ const CitySelector = memo((props) => {
         if(isAllEnglish(item)){
             setCurrentItem(item);
         }else {
-            const cityPromise = await globalDataServer.getHotCitys()
+            const cityPromise = await globalDataServer.getHotCitys() as {topCityList:any[]}
             const cityList = cityPromise.topCityList.map((item)=>item.name)
             setCityList(cityList)
             setCurrentItem('');

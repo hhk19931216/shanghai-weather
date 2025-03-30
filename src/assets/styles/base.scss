@@ -1,6 +1,6 @@
 // config
-@import "variables";
+@use "variables" as *;
 //layout
-@import "reboot";
+@use "reboot" as *;
 //mixin
-@import "mixin";
+@use "mixin" as *;

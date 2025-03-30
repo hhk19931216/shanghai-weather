@@ -1,4 +1,4 @@
-@import "../../../assets/styles/base";
+@use "@/assets/styles/mixin" as mxn;
 
 .today-weather-content{
   .title{
@@ -7,7 +7,7 @@
   }
   .sky-content-today{
     width: 100%;
-    @include container-flex(flex, row, nowrap, space-around, center);
+    @include mxn.container-flex(flex, row, nowrap, space-around, center);
       .icon-text{
 
       }

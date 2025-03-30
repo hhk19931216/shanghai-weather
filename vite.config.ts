@@ -26,6 +26,13 @@ export default defineConfig({
       format: {
         comments: false // 移除注释
       }
+    },
+    css: {
+      preprocessorOptions: {
+        scss: {
+          quietDeps: true
+        }
+      }
     }
   }
 })

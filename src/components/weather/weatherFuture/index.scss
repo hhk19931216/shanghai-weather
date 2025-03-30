@@ -1,4 +1,4 @@
-@import "../../../assets/styles/base";
+@use "@/assets/styles/mixin" as mxn;
 
 .title{
   margin: 20px 0;
@@ -9,7 +9,7 @@
   width: 100%;
   overflow-y: auto;
   position: relative;
-  @include scrollbar-thumb();
+  @include mxn.scrollbar-thumb();
 
   .sky-content {
     .sky-ul {
@@ -17,7 +17,7 @@
 
       .sky-li {
         //background: -webkit-gradient(linear, 0% 0, 0% 100%, from(#50b2fb), to(#a6d4f6));
-        @include container-flex(flex, row, nowrap, space-around, center);
+        @include mxn.container-flex(flex, row, nowrap, space-around, center);
         margin: 10px 0;
         border-radius: 4px;
 

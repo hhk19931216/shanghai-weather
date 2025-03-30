@@ -1,7 +1,7 @@
-@import "../../../assets/styles/base";
+@use "@/assets/styles/mixin" as mxn;
 .content {
   width: 550px;
-  @include scrollbar-thumb();
+  @include mxn.scrollbar-thumb();
   .city-selector-content-label {
     color: #000;
     font-size: 20px;
@@ -9,7 +9,7 @@
   }
 
   .city-selector-content-province {
-    @include container-flex(flex,row,wrap,flex-start,flex-start);
+    @include mxn.container-flex(flex,row,wrap,flex-start,flex-start);
     .city-selector-content-city{
       box-sizing: border-box;
       cursor: pointer;
@@ -20,7 +20,7 @@
       width: 25%;
       .city-selector-btn{
         color: #333;
-        lign-items: center;
+        align-items: center;
         border-radius: 4px;
         display: flex;
         font-size: 16px;

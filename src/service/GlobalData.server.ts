@@ -2,6 +2,7 @@
 import {WebAPI} from "@/service/WebAPI";
 import {RequestConfig} from "@/service/types";
 import webService from "@/service/WebService";
+import {AxiosRequestConfig} from "axios";
 
 export interface WeatherData {
     obsTime: string//观测数据时间
@@ -74,7 +75,10 @@ class DataServer {
             range: 'cn',
             key: WebAPI.KEY,
         }
-        return webService.http_get(WebAPI.GET_CITYS, params);
+        const cache:RequestConfig = {
+            cache: 10 * 60 * 1000
+        }
+        return webService.http_get(WebAPI.GET_CITYS, params,cache);
     }
 
     public async getHotCitys(location?: string) {
@@ -84,7 +88,7 @@ class DataServer {
             range: 'cn',
             key: WebAPI.KEY,
         }
-        return webService.http_get(WebAPI.GET_HOT_CITYS, params);
+        return webService.http_get(WebAPI.GET_HOT_CITYS, params,{ cache: true });
     }
 
 
@@ -98,7 +102,7 @@ class DataServer {
             location: location || "101020100",
             key: WebAPI.KEY
         }
-        return webService.http_get<typeof params>(WebAPI.GET_WEATHER, params);
+        return webService.http_get<typeof params>(WebAPI.GET_WEATHER, params,{ cache: 10 * 60 * 1000 });
     }
 
 
@@ -113,7 +117,7 @@ class DataServer {
             location: location || "101010100",
             key: WebAPI.KEY
         }
-        return webService.http_get<typeof params>(WebAPI.GET_WEATHER_7D, params);
+        return webService.http_get<typeof params>(WebAPI.GET_WEATHER_7D, params,{ cache: true });
     }
 
 
