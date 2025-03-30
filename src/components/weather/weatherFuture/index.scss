@@ -14,7 +14,7 @@
   .sky-content {
     .sky-ul {
       width: 100%;
-
+      padding-left: 0;
       .sky-li {
         //background: -webkit-gradient(linear, 0% 0, 0% 100%, from(#50b2fb), to(#a6d4f6));
         @include mxn.container-flex(flex, row, nowrap, space-around, center);

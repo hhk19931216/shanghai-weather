@@ -1,23 +1,24 @@
-import {FC, useEffect, useImperativeHandle, useMemo, useState} from "react";
+import {FC, useCallback, useEffect, useImperativeHandle, useMemo, useState} from "react";
 import React from "react";
 import "./index.scss"
 
 interface TabProps {
-    onChangeTab: (item: any) => Promise<void> | void;
+    onChangeTab: (item: string) => Promise<void> | void;
 }
 
-const tabList = ["热门省市","ABCD","EFGH","JKLM","NOPQ","RSTW","XYZ"]
-const TabComponent:FC<TabProps> = ({onChangeTab})=>{
-    const [activeKey, setActiveKey] = useState(tabList[0])
+const TAB_LIST = ["热门省市", "ABCD", "EFGH", "JKLM", "NOPQ", "RSTW", "XYZ"]  as const;
+const TabComponent: FC<TabProps> = ({onChangeTab}) => {
+    const [activeKey, setActiveKey] = useState<typeof TAB_LIST[number]>(TAB_LIST[0])
 
-    const changTab = (item)=>{
+    const handleTabChange = useCallback((item) => {
         onChangeTab(item);
         setActiveKey(item);
-    }
+    }, [onChangeTab])
 
     return <div className={'sidebar'}>
-        {tabList.map((item,index)=>{
-            return <div className={['tab-button',activeKey === item?"tab-active":""].join(" ")} onClick={()=>changTab(item)} key={index}>{item}</div>
+        {TAB_LIST.map((item) => {
+            return <div className={['tab-button', activeKey === item ? "tab-active" : ""].join(" ")}
+                        onClick={() => handleTabChange(item)} key={item}>{item}</div>
         })}
     </div>
 }
